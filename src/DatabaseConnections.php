@@ -6,6 +6,16 @@ class DatabaseConnections
 {
     /** @var DatabaseConnector[] */
     protected static $connectors = [];
+    public static $defaultConnector = 'default';
+
+    /**
+     * @param string $name
+     * @return void
+     */
+    public static function setDefaultConnector(string $name): void
+    {
+        static::$defaultConnector = $name;
+    }
 
     /**
      * @param DatabaseConnector $connector

@@ -184,4 +184,5 @@ abstract class DatabaseConnector
     abstract public function disconnect(): self;
     abstract public function query(string $query, array $replacements = []):? array;
     abstract public function extractSchemaColumns(Schema $schema): array;
+    abstract public function getLastInsertedId(): int;
 }
