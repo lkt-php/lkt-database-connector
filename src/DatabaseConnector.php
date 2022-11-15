@@ -3,6 +3,7 @@
 namespace Lkt\DatabaseConnectors;
 
 use Lkt\Factory\Schemas\Schema;
+use Lkt\QueryBuilding\Query;
 
 abstract class DatabaseConnector
 {
@@ -178,12 +179,11 @@ abstract class DatabaseConnector
         return $this;
     }
 
-
-
     abstract public function connect(): self;
     abstract public function disconnect(): self;
     abstract public function query(string $query, array $replacements = []):? array;
     abstract public function extractSchemaColumns(Schema $schema): array;
     abstract public function getLastInsertedId(): int;
     abstract public function makeUpdateParams(array $params = []) :string;
+    abstract public function getQuery(Query $builder, string $type, string $countableField): string;
 }
