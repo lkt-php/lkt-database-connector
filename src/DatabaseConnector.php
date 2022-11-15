@@ -232,4 +232,13 @@ abstract class DatabaseConnector
     {
         return $this->getQuery($builder,'update');
     }
+
+    /**
+     * @param Query $builder
+     * @return string
+     */
+    final public function getDeleteQuery(Query $builder): string
+    {
+        return $this->getQuery($builder,'delete');
+    }
 }
