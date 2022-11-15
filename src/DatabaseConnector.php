@@ -185,5 +185,51 @@ abstract class DatabaseConnector
     abstract public function extractSchemaColumns(Schema $schema): array;
     abstract public function getLastInsertedId(): int;
     abstract public function makeUpdateParams(array $params = []) :string;
-    abstract public function getQuery(Query $builder, string $type, string $countableField): string;
+    abstract public function getQuery(Query $builder, string $type, string $countableField = null): string;
+
+    /**
+     * @param Query $builder
+     * @return string
+     */
+    final public function getSelectQuery(Query $builder): string
+    {
+        return $this->getQuery($builder, 'select');
+    }
+
+    /**
+     * @param Query $builder
+     * @return string
+     */
+    final public function getSelectDistinctQuery(Query $builder): string
+    {
+        return $this->getQuery($builder,'selectDistinct');
+    }
+
+    /**
+     * @param Query $builder
+     * @param string $countableField
+     * @return string
+     */
+    final public function getCountQuery(Query $builder, string $countableField): string
+    {
+        return $this->getQuery($builder,'count', $countableField);
+    }
+
+    /**
+     * @param Query $builder
+     * @return string
+     */
+    final public function getInsertQuery(Query $builder): string
+    {
+        return $this->getQuery($builder,'insert');
+    }
+
+    /**
+     * @param Query $builder
+     * @return string
+     */
+    final public function getUpdateQuery(Query $builder): string
+    {
+        return $this->getQuery($builder,'update');
+    }
 }

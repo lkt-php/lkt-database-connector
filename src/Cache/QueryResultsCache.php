@@ -3,6 +3,7 @@
 namespace Lkt\DatabaseConnectors\Cache;
 
 use Cocur\Slugify\Slugify;
+use Exception;
 
 class QueryResultsCache
 {
@@ -63,9 +64,13 @@ class QueryResultsCache
 
     /**
      * @return array
+     * @throws Exception
      */
     public function getLatestResults(): array
     {
+        if ($this->latestResults === null) {
+            throw new Exception("Null results: {$this->query}");
+        }
         return $this->latestResults;
     }
 }
