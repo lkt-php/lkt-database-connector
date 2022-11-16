@@ -186,6 +186,30 @@ abstract class DatabaseConnector
     abstract public function getLastInsertedId(): int;
     abstract public function makeUpdateParams(array $params = []) :string;
     abstract public function getQuery(Query $builder, string $type, string $countableField = null): string;
+    abstract public function prepareDataToStore(Schema $schema, array $data): array;
+
+    /**
+     * @param string $str
+     * @return string
+     */
+    public function escapeDatabaseCharacters(string $str): string
+    {
+        $str = str_replace('\\', ':LKT_SLASH:', $str);
+        $str = str_replace('?', ':LKT_QUESTION_MARK:', $str);
+        return trim(str_replace("'", ':LKT_SINGLE_QUOTE:', $str));
+    }
+
+    /**
+     * @param string $value
+     * @return string
+     */
+    public function unEscapeDatabaseCharacters(string $value): string
+    {
+        $value = str_replace(':LKT_SLASH:', '\\', $value);
+        $value = str_replace(':LKT_QUESTION_MARK:', '?', $value);
+        $value = str_replace(':LKT_SINGLE_QUOTE:', "'", $value);
+        return trim(str_replace('\"', '"', $value));
+    }
 
     /**
      * @param Query $builder
