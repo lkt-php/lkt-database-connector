@@ -8,20 +8,11 @@ class DatabaseConnections
     protected static $connectors = [];
     public static $defaultConnector = 'default';
 
-    /**
-     * @param string $name
-     * @return void
-     */
     public static function setDefaultConnector(string $name): void
     {
         static::$defaultConnector = $name;
     }
 
-    /**
-     * @param DatabaseConnector $connector
-     * @return void
-     * @throws \Exception
-     */
     public static function set(DatabaseConnector $connector)
     {
         if (isset(static::$connectors[$connector->getName()])) {
@@ -30,16 +21,28 @@ class DatabaseConnections
         static::$connectors[$connector->getName()] = $connector;
     }
 
-    /**
-     * @param string $name
-     * @return DatabaseConnector
-     * @throws \Exception
-     */
     public static function get(string $name): DatabaseConnector
     {
         if (!isset(static::$connectors[$name])) {
             throw new \Exception("Connector '{$name}' doesn't exists");
         }
         return static::$connectors[$name];
+    }
+
+    public static function getDefaultConnector(): DatabaseConnector
+    {
+        $name = static::$defaultConnector;
+        if (!isset(static::$connectors[$name])) {
+            throw new \Exception("Connector '{$name}' doesn't exists");
+        }
+        return static::$connectors[$name];
+    }
+
+    /**
+     * @return DatabaseConnector[]
+     */
+    public static function getAllConnectors(): array
+    {
+        return static::$connectors;
     }
 }
