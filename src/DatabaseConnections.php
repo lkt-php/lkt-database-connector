@@ -5,15 +5,15 @@ namespace Lkt\DatabaseConnectors;
 class DatabaseConnections
 {
     /** @var DatabaseConnector[] */
-    protected static $connectors = [];
-    public static $defaultConnector = 'default';
+    protected static array $connectors = [];
+    public static string $defaultConnector = 'default';
 
     public static function setDefaultConnector(string $name): void
     {
         static::$defaultConnector = $name;
     }
 
-    public static function set(DatabaseConnector $connector)
+    public static function set(DatabaseConnector $connector): void
     {
         if (isset(static::$connectors[$connector->getName()])) {
             throw new \Exception("Invalid Connector Name: Connector name already in use ('{$connector->getName()}')");

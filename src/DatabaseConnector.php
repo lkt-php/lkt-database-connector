@@ -7,16 +7,16 @@ use Lkt\QueryBuilding\Query;
 
 abstract class DatabaseConnector
 {
-    protected $name;
-    protected $host = '';
-    protected $user = '';
-    protected $password = '';
-    protected $database = '';
-    protected $port = 0;
-    protected $charset = '';
+    protected string $name;
+    protected string $host = '';
+    protected string $user = '';
+    protected string $password = '';
+    protected string $database = '';
+    protected int $port = 0;
+    protected string $charset = '';
     protected $connection = null;
     protected $ignoreCache = false;
-    protected $forceRefresh = false;
+    protected bool $forceRefresh = false;
 
     /**
      * @param string $name

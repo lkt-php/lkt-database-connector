@@ -7,10 +7,10 @@ use Exception;
 
 class QueryResultsCache
 {
-    protected $connector = '';
-    protected $calls = [];
-    protected $query = '';
-    protected $latestResults = [];
+    protected string $connector = '';
+    protected array $calls = [];
+    protected string $query = '';
+    protected array $latestResults = [];
 
     public function __construct(string $connector, string $query, $latestResults)
     {

@@ -5,7 +5,7 @@ namespace Lkt\DatabaseConnectors\Cache;
 class QueryCache
 {
     /** @var QueryResultsCache[] */
-    protected static $cache = [];
+    protected static array $cache = [];
 
     /**
      * @param string $connector
@@ -13,7 +13,7 @@ class QueryCache
      * @param $results
      * @return void
      */
-    public static function set(string $connector, string $query, $results)
+    public static function set(string $connector, string $query, $results): void
     {
         $index = QueryResultsCache::buildCacheIndex($connector, $query);
         if (isset(static::$cache[$index]) && static::$cache[$index] instanceof QueryResultsCache) {

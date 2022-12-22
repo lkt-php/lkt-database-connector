@@ -4,7 +4,7 @@ namespace Lkt\DatabaseConnectors;
 
 class ConnectionHelper
 {
-    private static $PREPARED_PARAM_INDEX = 0;
+    private static int $PREPARED_PARAM_INDEX = 0;
 
     /**
      * @param string $query
@@ -76,7 +76,7 @@ class ConnectionHelper
      * @param array $params
      * @return void
      */
-    public static function normalize(string &$query, array &$params = [])
+    public static function normalize(string &$query, array &$params = []): void
     {
         static::$PREPARED_PARAM_INDEX = 0;
         $query = \preg_replace_callback('/\?/', ['self', 'normalizeParams'], $query);
@@ -92,7 +92,7 @@ class ConnectionHelper
     /**
      * @return string
      */
-    private static function normalizeParams()
+    private static function normalizeParams(): string
     {
         return ':param_' . static::$PREPARED_PARAM_INDEX++;
     }
