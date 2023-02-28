@@ -12,20 +12,20 @@ class ConnectionHelper
      */
     public static function sanitizeQuery(string $query = ''): string
     {
-        $q = \explode("\n", $query);
-        $t = [];
-        foreach ($q as $line) {
-            $l = \trim($line);
-            if (\strpos($l, '--') !== 0) {
-                $t[] = $l;
-            }
-        }
+//        $q = \explode("\n", $query);
+//        $t = [];
+//        foreach ($q as $line) {
+//            $l = \trim($line);
+//            if (\strpos($l, '--') !== 0) {
+//                $t[] = $l;
+//            }
+//        }
+//
+//        $query = \implode(' ', $t);
 
-        $query = \implode(' ', $t);
-
-        $query = \str_replace("\n", ' ', $query);
-        $query = \str_replace("\t", ' ', $query);
-        $query = \preg_replace('!\s+!', ' ', $query);
+//        $query = \str_replace("\n", ' ', $query);
+//        $query = \str_replace("\t", ' ', $query);
+//        $query = \preg_replace('!\s+!', ' ', $query);
         $query = \str_replace(", ", ',', $query);
         $query = \str_replace("( ", '(', $query);
         $query = \str_replace(" )", ')', $query);
