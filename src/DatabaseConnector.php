@@ -1,6 +1,6 @@
 <?php
 
-namespace Lkt\DatabaseConnectors;
+namespace Lkt\Connectors;
 
 use Lkt\Factory\Schemas\Schema;
 use Lkt\QueryBuilding\Query;
@@ -18,162 +18,100 @@ abstract class DatabaseConnector
     protected $ignoreCache = false;
     protected bool $forceRefresh = false;
 
-    /**
-     * @param string $name
-     */
     public function __construct(string $name)
     {
         $this->name = $name;
     }
 
-    /**
-     * @param string $name
-     * @return static
-     */
-    public static function define(string $name): self
+    public static function define(string $name): static
     {
         return new static($name);
     }
 
-    /**
-     * @return string
-     */
     public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * @param string $host
-     * @return $this
-     */
-    public function setHost(string $host): self
+    public function setHost(string $host): static
     {
         $this->host = $host;
         return $this;
     }
 
-    /**
-     * @param string $charset
-     * @return $this
-     */
-    public function setCharset(string $charset): self
+    public function setCharset(string $charset): static
     {
         $this->charset = $charset;
         return $this;
     }
 
-    /**
-     * @param string $database
-     * @return $this
-     */
-    public function setDatabase(string $database): self
+    public function setDatabase(string $database): static
     {
         $this->database = $database;
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getCharset(): string
     {
         return $this->charset;
     }
 
-    /**
-     * @return string
-     */
     public function getDatabase(): string
     {
         return $this->database;
     }
 
-    /**
-     * @return string
-     */
     public function getHost(): string
     {
         return $this->host;
     }
 
-    /**
-     * @return string
-     */
     public function getPassword(): string
     {
         return $this->password;
     }
 
-    /**
-     * @return int
-     */
     public function getPort(): int
     {
         return $this->port;
     }
 
-    /**
-     * @return string
-     */
     public function getUser(): string
     {
         return $this->user;
     }
 
-    /**
-     * @param string $name
-     * @return $this
-     */
-    public function setName(string $name): self
+    public function setName(string $name): static
     {
         $this->name = $name;
         return $this;
     }
 
-    /**
-     * @param string $password
-     * @return $this
-     */
-    public function setPassword(string $password): self
+    public function setPassword(string $password): static
     {
         $this->password = $password;
         return $this;
     }
 
-    /**
-     * @param int $port
-     * @return $this
-     */
-    public function setPort(int $port): self
+    public function setPort(int $port): static
     {
         $this->port = $port;
         return $this;
     }
 
-    /**
-     * @param string $user
-     * @return $this
-     */
-    public function setUser(string $user): self
+    public function setUser(string $user): static
     {
         $this->user = $user;
         return $this;
     }
 
-    /**
-     * @return $this
-     */
-    public function forceRefreshNextQuery()
+    public function forceRefreshNextQuery(): static
     {
         $this->forceRefresh = true;
         return $this;
     }
 
-    /**
-     * @return $this
-     */
-    protected function forceRefreshFinished()
+    protected function forceRefreshFinished(): static
     {
         $this->forceRefresh = false;
         return $this;
@@ -188,10 +126,6 @@ abstract class DatabaseConnector
     abstract public function getQuery(Query $builder, string $type, string $countableField = null): string;
     abstract public function prepareDataToStore(Schema $schema, array $data): array;
 
-    /**
-     * @param string $str
-     * @return string
-     */
     public function escapeDatabaseCharacters(string $str): string
     {
         $str = str_replace('\\', ':LKT_SLASH:', $str);
@@ -199,10 +133,6 @@ abstract class DatabaseConnector
         return trim(str_replace("'", ':LKT_SINGLE_QUOTE:', $str));
     }
 
-    /**
-     * @param string $value
-     * @return string
-     */
     public function unEscapeDatabaseCharacters(string $value): string
     {
         $value = str_replace(':LKT_SLASH:', '\\', $value);
@@ -211,56 +141,31 @@ abstract class DatabaseConnector
         return trim(str_replace('\"', '"', $value));
     }
 
-    /**
-     * @param Query $builder
-     * @return string
-     */
     final public function getSelectQuery(Query $builder): string
     {
         return $this->getQuery($builder, 'select');
     }
 
-    /**
-     * @param Query $builder
-     * @return string
-     */
     final public function getSelectDistinctQuery(Query $builder): string
     {
         return $this->getQuery($builder,'selectDistinct');
     }
 
-    /**
-     * @param Query $builder
-     * @param string $countableField
-     * @return string
-     */
     final public function getCountQuery(Query $builder, string $countableField): string
     {
         return $this->getQuery($builder,'count', $countableField);
     }
 
-    /**
-     * @param Query $builder
-     * @return string
-     */
     final public function getInsertQuery(Query $builder): string
     {
         return $this->getQuery($builder,'insert');
     }
 
-    /**
-     * @param Query $builder
-     * @return string
-     */
     final public function getUpdateQuery(Query $builder): string
     {
         return $this->getQuery($builder,'update');
     }
 
-    /**
-     * @param Query $builder
-     * @return string
-     */
     final public function getDeleteQuery(Query $builder): string
     {
         return $this->getQuery($builder,'delete');

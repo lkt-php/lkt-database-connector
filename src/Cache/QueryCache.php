@@ -1,6 +1,6 @@
 <?php
 
-namespace Lkt\DatabaseConnectors\Cache;
+namespace Lkt\Connectors\Cache;
 
 class QueryCache
 {

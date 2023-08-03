@@ -1,6 +1,6 @@
 <?php
 
-namespace Lkt\DatabaseConnectors;
+namespace Lkt\Connectors;
 
 class DatabaseConnections
 {
