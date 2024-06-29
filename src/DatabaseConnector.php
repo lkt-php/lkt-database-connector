@@ -122,7 +122,7 @@ abstract class DatabaseConnector
     abstract public function query(string $query, array $replacements = []):? array;
     abstract public function extractSchemaColumns(Schema $schema): array;
     abstract public function getLastInsertedId(): int;
-    abstract public function makeUpdateParams(array $params = []) :string;
+    abstract public function makeUpdateParams(array $params = [], string $type = 'create') :string;
     abstract public function getQuery(Query $builder, string $type, string $countableField = null): string;
     abstract public function prepareDataToStore(Schema $schema, array $data): array;
 
